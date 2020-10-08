@@ -1,0 +1,17 @@
+# ninja log v5
+5	1434	623827767	CMakeFiles/facedetect.dir/src/main/cpp/net.cpp.o	987fe678ae0c9143
+8	1605	623827767	CMakeFiles/facedetect.dir/src/main/cpp/Ultra_jni.cpp.o	d856436cc8145d2f
+1	1857	623827768	CMakeFiles/facedetect.dir/src/main/cpp/UltraFace.cpp.o	aceda58068a760a9
+1857	2027	623827768	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libfacedetect.so	31de20ec25aa1c38
+1	18	0	clean	2578cf2e1c50266c
+6	1037	623829885	CMakeFiles/facedetect.dir/src/main/cpp/net.cpp.o	987fe678ae0c9143
+9	1186	623829885	CMakeFiles/facedetect.dir/src/main/cpp/Ultra_jni.cpp.o	d856436cc8145d2f
+3	1414	623829885	CMakeFiles/facedetect.dir/src/main/cpp/UltraFace.cpp.o	aceda58068a760a9
+1414	1543	623829885	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libfacedetect.so	31de20ec25aa1c38
+1	12	0	clean	2578cf2e1c50266c
+6	936	623830252	CMakeFiles/facedetect.dir/src/main/cpp/net.cpp.o	987fe678ae0c9143
+9	1083	623830252	CMakeFiles/facedetect.dir/src/main/cpp/Ultra_jni.cpp.o	d856436cc8145d2f
+3	1282	623830253	CMakeFiles/facedetect.dir/src/main/cpp/UltraFace.cpp.o	aceda58068a760a9
+1282	1402	623830253	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libfacedetect.so	31de20ec25aa1c38
+3	825	623830321	CMakeFiles/facedetect.dir/src/main/cpp/Ultra_jni.cpp.o	d856436cc8145d2f
+826	941	623830321	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libfacedetect.so	31de20ec25aa1c38

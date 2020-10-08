@@ -1,0 +1,19 @@
+[
+{
+  "directory": "C:/Users/Admin/AndroidStudioProjects/camera-samples/CameraXBasic/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi21 --gcc-toolchain=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -DMNN_USE_LOGCAT -Dfacedetect_EXPORTS -I../../../../src/main/cpp/include -I../../../../src/main/cpp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles\\facedetect.dir\\src\\main\\cpp\\Ultra_jni.cpp.o -c C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\cpp\\Ultra_jni.cpp",
+  "file": "C:/Users/Admin/AndroidStudioProjects/camera-samples/CameraXBasic/app/src/main/cpp/Ultra_jni.cpp"
+},
+
+{
+  "directory": "C:/Users/Admin/AndroidStudioProjects/camera-samples/CameraXBasic/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi21 --gcc-toolchain=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -DMNN_USE_LOGCAT -Dfacedetect_EXPORTS -I../../../../src/main/cpp/include -I../../../../src/main/cpp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles\\facedetect.dir\\src\\main\\cpp\\UltraFace.cpp.o -c C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\cpp\\UltraFace.cpp",
+  "file": "C:/Users/Admin/AndroidStudioProjects/camera-samples/CameraXBasic/app/src/main/cpp/UltraFace.cpp"
+},
+
+{
+  "directory": "C:/Users/Admin/AndroidStudioProjects/camera-samples/CameraXBasic/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi21 --gcc-toolchain=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -DMNN_USE_LOGCAT -Dfacedetect_EXPORTS -I../../../../src/main/cpp/include -I../../../../src/main/cpp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -std=c++11 -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles\\facedetect.dir\\src\\main\\cpp\\net.cpp.o -c C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\cpp\\net.cpp",
+  "file": "C:/Users/Admin/AndroidStudioProjects/camera-samples/CameraXBasic/app/src/main/cpp/net.cpp"
+}
+]

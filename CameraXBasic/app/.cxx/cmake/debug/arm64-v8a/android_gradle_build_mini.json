@@ -1,0 +1,23 @@
+{
+  "buildFiles": [
+    "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\CMakeLists.txt",
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake",
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\platforms.cmake"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\.cxx\\cmake\\debug\\arm64-v8a\" clean"
+  ],
+  "buildTargetsCommand": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\.cxx\\cmake\\debug\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "facedetect-Debug-arm64-v8a": {
+      "artifactName": "facedetect",
+      "buildCommand": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\.cxx\\cmake\\debug\\arm64-v8a\" facedetect",
+      "abi": "arm64-v8a",
+      "output": "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libfacedetect.so",
+      "runtimeFiles": [
+        "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\jniLibs\\arm64-v8a\\libMNN.so",
+        "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\jniLibs\\arm64-v8a\\libMNN_CL.so"
+      ]
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "stringTable": {
+    "0": "C:/Users/Admin/AndroidStudioProjects/camera-samples/CameraXBasic/app/.cxx/cmake/release/arm64-v8a",
+    "1": "--target=aarch64-none-linux-android21 --gcc-toolchain=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/Admin/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DMNN_USE_LOGCAT -Dfacedetect_EXPORTS -I../../../../src/main/cpp/include -I../../../../src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c++11 -O2 -DNDEBUG -fPIC"
+  },
+  "buildFiles": [
+    "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\CMakeLists.txt",
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake",
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\platforms.cmake"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\.cxx\\cmake\\release\\arm64-v8a\" clean"
+  ],
+  "buildTargetsCommand": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\.cxx\\cmake\\release\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "facedetect-Release-arm64-v8a": {
+      "buildCommand": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\.cxx\\cmake\\release\\arm64-v8a\" facedetect",
+      "buildType": "release",
+      "toolchain": "1398570636",
+      "abi": "arm64-v8a",
+      "artifactName": "facedetect",
+      "files": [
+        {
+          "src": "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\cpp\\Ultra_jni.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\cpp\\UltraFace.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\cpp\\net.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libfacedetect.so",
+      "runtimeFiles": [
+        "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\jniLibs\\arm64-v8a\\libMNN.so",
+        "C:\\Users\\Admin\\AndroidStudioProjects\\camera-samples\\CameraXBasic\\app\\src\\main\\jniLibs\\arm64-v8a\\libMNN_CL.so"
+      ]
+    }
+  },
+  "toolchains": {
+    "1398570636": {
+      "cppCompilerExecutable": "C:\\Users\\Admin\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}
