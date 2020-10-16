@@ -56,8 +56,7 @@ struct halide_buffer_t;
  * Note that the int/uint/float values do not imply a specific bit width
  * (the bit width is expected to be encoded in a separate value).
  */
-typedef enum halide_type_code_t
-{
+typedef enum halide_type_code_t {
     halide_type_int = 0,   //!< signed integers
     halide_type_uint = 1,  //!< unsigned integers
     halide_type_float = 2, //!< floating point numbers
@@ -67,11 +66,11 @@ typedef enum halide_type_code_t
 // Note that while __attribute__ can go before or after the declaration,
 // __declspec apparently is only allowed before.
 #ifndef HALIDE_ATTRIBUTE_ALIGN
-    #ifdef _MSC_VER
-        #define HALIDE_ATTRIBUTE_ALIGN(x) __declspec(align(x))
-    #else
-        #define HALIDE_ATTRIBUTE_ALIGN(x) __attribute__((aligned(x)))
-    #endif
+#ifdef _MSC_VER
+#define HALIDE_ATTRIBUTE_ALIGN(x) __declspec(align(x))
+#else
+#define HALIDE_ATTRIBUTE_ALIGN(x) __attribute__((aligned(x)))
+#endif
 #endif
 
 /** A runtime tag for a type in the halide type system. Can be ints,
@@ -99,12 +98,12 @@ struct halide_type_t {
      * bits: The bit size of one element.
      * lanes: The number of vector elements in the type. */
     HALIDE_ALWAYS_INLINE halide_type_t(halide_type_code_t code, uint8_t bits, uint16_t lanes = 1)
-        : code(code), bits(bits), lanes(lanes) {
+            : code(code), bits(bits), lanes(lanes) {
     }
 
     /** Default constructor is required e.g. to declare halide_trace_event
      * instances. */
-    HALIDE_ALWAYS_INLINE halide_type_t() : code((halide_type_code_t)0), bits(0), lanes(0) {}
+    HALIDE_ALWAYS_INLINE halide_type_t() : code((halide_type_code_t) 0), bits(0), lanes(0) {}
 
     /** Compare two types for equality. */
     HALIDE_ALWAYS_INLINE bool operator==(const halide_type_t &other) const {
@@ -119,6 +118,7 @@ struct halide_type_t {
 
     /** Size in bytes for a single element, even if width is not 1, of this type. */
     HALIDE_ALWAYS_INLINE int bytes() const { return (bits + 7) / 8; }
+
 #endif
 };
 
@@ -143,24 +143,38 @@ struct halide_device_interface_impl_t;
 struct halide_device_interface_t {
     int (*device_malloc)(void *user_context, struct halide_buffer_t *buf,
                          const struct halide_device_interface_t *device_interface);
+
     int (*device_free)(void *user_context, struct halide_buffer_t *buf);
+
     int (*device_sync)(void *user_context, struct halide_buffer_t *buf);
+
     void (*device_release)(void *user_context,
                            const struct halide_device_interface_t *device_interface);
+
     int (*copy_to_host)(void *user_context, struct halide_buffer_t *buf);
+
     int (*copy_to_device)(void *user_context, struct halide_buffer_t *buf,
                           const struct halide_device_interface_t *device_interface);
+
     int (*device_and_host_malloc)(void *user_context, struct halide_buffer_t *buf,
                                   const struct halide_device_interface_t *device_interface);
+
     int (*device_and_host_free)(void *user_context, struct halide_buffer_t *buf);
+
     int (*buffer_copy)(void *user_context, struct halide_buffer_t *src,
-                       const struct halide_device_interface_t *dst_device_interface, struct halide_buffer_t *dst);
+                       const struct halide_device_interface_t *dst_device_interface,
+                       struct halide_buffer_t *dst);
+
     int (*device_crop)(void *user_context, const struct halide_buffer_t *src,
                        struct halide_buffer_t *dst);
+
     int (*device_release_crop)(void *user_context, struct halide_buffer_t *buf);
+
     int (*wrap_native)(void *user_context, struct halide_buffer_t *buf, uint64_t handle,
                        const struct halide_device_interface_t *device_interface);
+
     int (*detach_native)(void *user_context, struct halide_buffer_t *buf);
+
     const struct halide_device_interface_impl_t *impl;
 };
 
@@ -171,20 +185,23 @@ typedef struct halide_dimension_t {
     uint32_t flags;
 
 #ifdef __cplusplus
+
     HALIDE_ALWAYS_INLINE halide_dimension_t() : min(0), extent(0), stride(0), flags(0) {}
+
     HALIDE_ALWAYS_INLINE halide_dimension_t(int32_t m, int32_t e, int32_t s, uint32_t f = 0) :
-        min(m), extent(e), stride(s), flags(f) {}
+            min(m), extent(e), stride(s), flags(f) {}
 
     HALIDE_ALWAYS_INLINE bool operator==(const halide_dimension_t &other) const {
         return (min == other.min) &&
-            (extent == other.extent) &&
-            (stride == other.stride) &&
-            (flags == other.flags);
+               (extent == other.extent) &&
+               (stride == other.stride) &&
+               (flags == other.flags);
     }
 
     HALIDE_ALWAYS_INLINE bool operator!=(const halide_dimension_t &other) const {
         return !(*this == other);
     }
+
 #endif
 } halide_dimension_t;
 
@@ -192,8 +209,10 @@ typedef struct halide_dimension_t {
 } // extern "C"
 #endif
 
-typedef enum {halide_buffer_flag_host_dirty = 1,
-              halide_buffer_flag_device_dirty = 2} halide_buffer_flags;
+typedef enum {
+    halide_buffer_flag_host_dirty = 1,
+    halide_buffer_flag_device_dirty = 2
+} halide_buffer_flags;
 
 /**
  * The raw representation of an image passed around by generated
@@ -210,7 +229,7 @@ typedef struct halide_buffer_t {
     /** A pointer to the start of the data in main memory. In terms of
      * the Halide coordinate system, this is the address of the min
      * coordinates (defined below). */
-    uint8_t* host;
+    uint8_t *host;
 
     /** flags with various meanings. */
     uint64_t flags;
@@ -233,8 +252,11 @@ typedef struct halide_buffer_t {
 #ifdef __cplusplus
 
 namespace {
-template<typename T> struct check_is_pointer;
-template<typename T> struct check_is_pointer<T *> {};
+    template<typename T>
+    struct check_is_pointer;
+    template<typename T>
+    struct check_is_pointer<T *> {
+    };
 }
 
 /** Construct the halide equivalent of a C type */
@@ -243,7 +265,7 @@ HALIDE_ALWAYS_INLINE halide_type_t halide_type_of() {
     // Create a compile-time error if T is not a pointer (without
     // using any includes - this code goes into the runtime).
     check_is_pointer<T> check;
-    (void)check;
+    (void) check;
     return halide_type_t(halide_type_handle, 64);
 }
 

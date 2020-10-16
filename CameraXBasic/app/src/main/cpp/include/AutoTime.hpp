@@ -16,20 +16,25 @@
 namespace MNN {
 
 /** time tracing util. prints duration between init and deinit. */
-class MNN_PUBLIC AutoTime {
-public:
-    AutoTime(int line, const char* func);
-    ~AutoTime();
-    AutoTime(const AutoTime&)  = delete;
-    AutoTime(const AutoTime&&) = delete;
-    AutoTime& operator=(const AutoTime&) = delete;
-    AutoTime& operator=(const AutoTime&&) = delete;
+    class MNN_PUBLIC AutoTime {
+    public:
+        AutoTime(int line, const char *func);
 
-private:
-    int mLine;
-    char* mName;
-    uint64_t mCurrentTime;
-};
+        ~AutoTime();
+
+        AutoTime(const AutoTime &) = delete;
+
+        AutoTime(const AutoTime &&) = delete;
+
+        AutoTime &operator=(const AutoTime &) = delete;
+
+        AutoTime &operator=(const AutoTime &&) = delete;
+
+    private:
+        int mLine;
+        char *mName;
+        uint64_t mCurrentTime;
+    };
 } // namespace MNN
 
 #ifdef MNN_OPEN_TIME_TRACE

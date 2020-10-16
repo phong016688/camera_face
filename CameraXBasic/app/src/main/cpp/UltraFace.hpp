@@ -27,13 +27,15 @@ typedef struct FaceInfo {
 
 class UltraFace {
 public:
-    UltraFace(std::string &mnn_path, int input_width, int input_length, int num_thread_ = 4, float score_threshold_ = 0.7, float iou_threshold_ = 0.35);
+    UltraFace(std::string &mnn_path, int input_width, int input_length, int num_thread_ = 4,
+              float score_threshold_ = 0.7, float iou_threshold_ = 0.35);
 
     //~UltraFace();
 
-    int detect(unsigned char *raw_image, int width, int height, int channel, std::vector<FaceInfo> &face_list);
+    int detect(unsigned char *raw_image, int width, int height, int channel,
+               std::vector<FaceInfo> &face_list);
 
-    void generateBBox(std::vector<FaceInfo> &bbox_collection,  float* scores, float* boxes);
+    void generateBBox(std::vector<FaceInfo> &bbox_collection, float *scores, float *boxes);
 
     void nms(std::vector<FaceInfo> &input, std::vector<FaceInfo> &output, int type = blending_nms);
 

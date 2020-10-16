@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         //FaceSDKNative.getInstance().FaceDetectionModelUnInit()
     }
+
     /** When key down event is triggered, relay it via local broadcast so fragments can handle it */
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
@@ -75,7 +76,8 @@ class MainActivity : AppCompatActivity() {
         fun getOutputDirectory(context: Context): File {
             val appContext = context.applicationContext
             val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
-                File(it, appContext.resources.getString(R.string.app_name)).apply { mkdirs() } }
+                File(it, appContext.resources.getString(R.string.app_name)).apply { mkdirs() }
+            }
             return if (mediaDir != null && mediaDir.exists())
                 mediaDir else appContext.filesDir
         }

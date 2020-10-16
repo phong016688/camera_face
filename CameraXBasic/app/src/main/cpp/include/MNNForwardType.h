@@ -8,6 +8,7 @@
 
 #ifndef MNNForwardType_h
 #define MNNForwardType_h
+
 #include <stdint.h>
 #include <stddef.h>
 

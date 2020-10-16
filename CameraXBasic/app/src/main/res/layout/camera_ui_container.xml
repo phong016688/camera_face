@@ -62,4 +62,46 @@
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_photo" />
 
+    <ImageButton
+        android:id="@+id/filterButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_baseline_photo_filter_24"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="@string/filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/recoderImgeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textTimeRecoder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/recoderImgeButton"
+        app:layout_constraintStart_toEndOf="@id/recoderImgeButton"
+        app:layout_constraintTop_toTopOf="@id/recoderImgeButton" />
+
+    <TextView
+        android:id="@+id/choiceRatio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Ratio"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/recoderImgeButton"
+        app:layout_constraintStart_toEndOf="@id/recoderImgeButton"
+        app:layout_constraintTop_toTopOf="@id/recoderImgeButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

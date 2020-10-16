@@ -16,8 +16,9 @@ bool detection_sdk_init_ok = false;
 extern "C" {
 
 JNIEXPORT jboolean JNICALL
-Java_com_android_example_cameraxbasic_fragments_FaceSDKNative_FaceDetectionModelInit(JNIEnv *env, jobject instance,
-                                                                    jstring faceDetectionModelPath_) {
+Java_com_android_example_cameraxbasic_fragments_FaceSDKNative_FaceDetectionModelInit(JNIEnv *env,
+                                                                                     jobject instance,
+                                                                                     jstring faceDetectionModelPath_) {
     LOGD("JNI init native sdk");
     if (detection_sdk_init_ok) {
         LOGD("sdk already init");
@@ -57,10 +58,12 @@ Java_com_android_example_cameraxbasic_fragments_FaceSDKNative_FaceDetectionModel
 }
 
 JNIEXPORT jintArray JNICALL
-Java_com_android_example_cameraxbasic_fragments_FaceSDKNative_FaceDetect(JNIEnv *env, jobject instance,
-                                                        jbyteArray imageDate_,
-                                                        jint imageWidth, jint imageHeight,
-                                                        jint imageChannel) {
+Java_com_android_example_cameraxbasic_fragments_FaceSDKNative_FaceDetect(JNIEnv *env,
+                                                                         jobject instance,
+                                                                         jbyteArray imageDate_,
+                                                                         jint imageWidth,
+                                                                         jint imageHeight,
+                                                                         jint imageChannel) {
     if (!detection_sdk_init_ok) {
         LOGD("sdk not init");
         return NULL;
@@ -116,7 +119,7 @@ Java_com_android_example_cameraxbasic_fragments_FaceSDKNative_FaceDetect(JNIEnv 
 
 JNIEXPORT jboolean JNICALL
 Java_com_android_example_cameraxbasic_fragments_FaceSDKNative_FaceDetectionModelUnInit(JNIEnv *env,
-                                                                      jobject instance) {
+                                                                                       jobject instance) {
 
     jboolean tDetectionUnInit = false;
 
