@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.fragment.app.Fragment
 import com.android.example.cameraxbasic.R
 import com.bumptech.glide.Glide
@@ -46,6 +47,41 @@ class PhotoFragment internal constructor() : Fragment() {
         fun create(image: File) = PhotoFragment().apply {
             arguments = Bundle().apply {
                 putString(FILE_NAME_KEY, image.absolutePath)
+            }
+        }
+    }
+}
+
+class VideoFragment internal constructor() : Fragment() {
+
+    private lateinit var path: String
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?) = VideoView(context)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val args = arguments ?: return
+        path = args.getString(FILE_KEY) ?: ""
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (view as VideoView).setVideoPath(path)
+        (view as VideoView).start()
+    }
+
+    override fun onPause() {
+        (view as VideoView).stopPlayback()
+        super.onPause()
+    }
+
+    companion object {
+        private const val FILE_KEY = "video_file_path"
+
+        fun create(path: String) = VideoFragment().apply {
+            arguments = Bundle().apply {
+                putString(FILE_KEY, path)
             }
         }
     }

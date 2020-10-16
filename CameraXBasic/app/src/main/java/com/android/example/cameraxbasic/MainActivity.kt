@@ -16,6 +16,7 @@
 
 package com.android.example.cameraxbasic
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
@@ -24,6 +25,7 @@ import java.io.File
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.content.Intent
 import android.widget.FrameLayout
+import androidx.navigation.Navigation
 import com.android.example.cameraxbasic.fragments.FaceSDKNative
 import com.android.example.cameraxbasic.utils.FLAGS_FULLSCREEN
 
@@ -67,6 +69,15 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else -> super.onKeyDown(keyCode, event)
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    override fun onBackPressed() {
+        Navigation.findNavController(this, R.id.fragment_container).apply {
+            if (backStack.isNotEmpty())
+                popBackStack()
+            else super.onBackPressed()
         }
     }
 

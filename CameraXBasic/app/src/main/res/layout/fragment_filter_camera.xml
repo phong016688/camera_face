@@ -11,7 +11,7 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_gravity="bottom">
+        android:layout_gravity="top">
 
         <LinearLayout
             android:id="@+id/containerAction"
@@ -19,5 +19,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" />
     </HorizontalScrollView>
+
+    <ImageButton
+        android:id="@+id/filter_camera_capture_button"
+        android:layout_width="@dimen/round_button_large"
+        android:layout_height="@dimen/round_button_large"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/shutter_button_margin"
+        android:background="@drawable/ic_shutter"
+        android:contentDescription="@string/capture_button_alt"
+        android:scaleType="fitCenter" />
+
+    <ImageButton
+        android:id="@+id/filter_photo_view_button"
+        android:layout_width="@dimen/round_button_medium"
+        android:layout_height="@dimen/round_button_medium"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_xlarge"
+        android:background="@drawable/ic_outer_circle"
+        android:contentDescription="@string/gallery_button_alt"
+        android:padding="@dimen/spacing_large"
+        android:scaleType="fitCenter" />
 
 </FrameLayout>

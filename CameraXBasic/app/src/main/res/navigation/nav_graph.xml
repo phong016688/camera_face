@@ -35,9 +35,7 @@
 
         <action
             android:id="@+id/action_camera_to_filter_camera"
-            app:destination="@id/filter_camera_fragment"
-            app:popUpTo="@id/camera_fragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/filter_camera_fragment" />
 
     </fragment>
 
@@ -53,6 +51,10 @@
     <fragment
         android:id="@+id/filter_camera_fragment"
         android:name="com.android.example.cameraxbasic.fragments.FilterCamFragment"
-        android:label="Filter camera" />
+        android:label="Filter camera">
+        <action
+            android:id="@+id/filter_to_gallery"
+            app:destination="@id/gallery_fragment" />
+    </fragment>
 
 </navigation>

@@ -20,14 +20,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.webkit.MimeTypeMap
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.camera.core.*
 import androidx.camera.core.ImageCapture.Metadata
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -44,10 +39,7 @@ import com.android.example.cameraxbasic.KEY_EVENT_ACTION
 import com.android.example.cameraxbasic.KEY_EVENT_EXTRA
 import com.android.example.cameraxbasic.MainActivity
 import com.android.example.cameraxbasic.R
-import com.android.example.cameraxbasic.utils.ANIMATION_FAST_MILLIS
-import com.android.example.cameraxbasic.utils.ANIMATION_SLOW_MILLIS
-import com.android.example.cameraxbasic.utils.PreviewViewCustom
-import com.android.example.cameraxbasic.utils.simulateClick
+import com.android.example.cameraxbasic.utils.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.Dispatchers
@@ -61,9 +53,6 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
-import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
 
 /** Helper type alias used for analysis use case callbacks */
 typealias LumaListener = (luma: Double) -> Unit
@@ -94,6 +83,7 @@ class CameraFragment : Fragment() {
     private var camera: Camera? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var state = StateCam.CAPTURE
+    private var screenAspectRatio = AspectRatio.RATIO_16_9
 
     private val displayManager by lazy {
         requireContext().getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
@@ -265,9 +255,6 @@ class CameraFragment : Fragment() {
         val metrics = DisplayMetrics().also { viewFinder.display.getRealMetrics(it) }
         Log.d("####", "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
 
-        val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
-        Log.d("####", "Preview aspect ratio: $screenAspectRatio")
-
         val rotation = viewFinder.display.rotation
 
         // CameraProvider
@@ -343,6 +330,7 @@ class CameraFragment : Fragment() {
                                     }
                                     val os = FileOutputStream(file)
                                     os.write(face.toByteArray())
+                                    os.close()
                                 }
                             }
                         }
@@ -385,14 +373,6 @@ class CameraFragment : Fragment() {
         }
     }
 
-    private fun aspectRatio(width: Int, height: Int): Int {
-        val previewRatio = max(width, height).toDouble() / min(width, height)
-        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
-            return AspectRatio.RATIO_4_3
-        }
-        return AspectRatio.RATIO_16_9
-    }
-
     /** Method used to re-draw the camera UI controls, called every time configuration changes. */
     @SuppressLint("RestrictedApi", "SetTextI18n")
     private fun updateCameraUi() {
@@ -414,13 +394,38 @@ class CameraFragment : Fragment() {
             }
         }
 
+        controls.findViewById<TextView>(R.id.choiceRatio).setOnClickListener {
+            with(PopupWindow(context)) {
+                val listView = ListView(context)
+                listView.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, listOf(
+                        "16:9",
+                        "4:3",
+                ))
+                listView.setOnItemClickListener { _, _, position, _ ->
+                    screenAspectRatio = if (position == 0)
+                        AspectRatio.RATIO_16_9
+                    else
+                        AspectRatio.RATIO_4_3
+                    bindCameraUseCases()
+                    view?.postDelayed({
+                        view?.systemUiVisibility = FLAGS_FULLSCREEN
+                    }, 200L)
+                    dismiss()
+                }
+                contentView = listView
+                isFocusable = true
+                width = 150
+                height = WindowManager.LayoutParams.WRAP_CONTENT
+                showAsDropDown(it, 0, 0)
+            }
+        }
+
         controls.findViewById<ImageButton>(R.id.filterButton).setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.fragment_container)
                     .navigate(CameraFragmentDirections.actionCameraToFilterCamera())
         }
 
         var isRecoder = false
-
 
         controls.findViewById<ImageButton>(R.id.recoderImgeButton).setOnClickListener {
             val cameraSelector = CameraSelector.Builder()
@@ -753,14 +758,14 @@ class CameraFragment : Fragment() {
 
     companion object {
 
+        const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
+        const val PHOTO_EXTENSION = ".jpg"
         private const val TAG = "CameraXBasic"
-        private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
-        private const val PHOTO_EXTENSION = ".jpg"
         private const val RATIO_4_3_VALUE = 4.0 / 3.0
         private const val RATIO_16_9_VALUE = 16.0 / 9.0
 
         /** Helper function used to create a timestamped file */
-        private fun createFile(baseFolder: File, format: String, extension: String) =
+        fun createFile(baseFolder: File, format: String, extension: String) =
                 File(baseFolder, SimpleDateFormat(format, Locale.US)
                         .format(System.currentTimeMillis()) + extension)
     }
