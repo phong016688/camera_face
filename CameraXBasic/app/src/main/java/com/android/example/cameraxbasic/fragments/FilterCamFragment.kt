@@ -2,6 +2,7 @@ package com.android.example.cameraxbasic.fragments
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
@@ -23,11 +24,10 @@ import com.android.example.cameraxbasic.utils.FLAGS_FULLSCREEN
 import com.bumptech.glide.Glide
 import jp.co.cyberagent.android.gpuimage.GPUImageView
 import jp.co.cyberagent.android.gpuimage.filter.*
-import kotlinx.android.synthetic.main.fragment_filter_camera.*
 import kotlinx.android.synthetic.main.fragment_filter_camera.view.*
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.FileOutputStream
+import java.nio.ByteBuffer
 import java.util.concurrent.Executors
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageGrayscaleFilter as GPUImageGrayscaleFilter1
 
@@ -76,6 +76,15 @@ class FilterCamFragment : Fragment(R.layout.fragment_filter_camera) {
             }
         }
 
+        view.swichButton.setOnClickListener {
+            lensFacing = if (lensFacing == CameraSelector.LENS_FACING_FRONT && cameraProvider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) == true) {
+                CameraSelector.LENS_FACING_BACK
+            } else if (lensFacing == CameraSelector.LENS_FACING_BACK && cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) == true) {
+                CameraSelector.LENS_FACING_FRONT
+            } else return@setOnClickListener
+            bindCameraUseCases()
+        }
+
         setupCamera()
 
         view.postDelayed({
@@ -118,10 +127,10 @@ class FilterCamFragment : Fragment(R.layout.fragment_filter_camera) {
                 cameraProvider = get()
 
                 lensFacing = when {
-                    cameraProvider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA)
-                            ?: false -> CameraSelector.LENS_FACING_BACK
                     cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA)
                             ?: false -> CameraSelector.LENS_FACING_FRONT
+                    cameraProvider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA)
+                            ?: false -> CameraSelector.LENS_FACING_BACK
                     else -> throw IllegalStateException("has support camera")
                 }
 
@@ -148,24 +157,77 @@ class FilterCamFragment : Fragment(R.layout.fragment_filter_camera) {
         val imageAnalysis = ImageAnalysis.Builder()
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
-
+        var frameCount = 0
         imageAnalysis.setAnalyzer(cameraExecutor, ImageAnalysis.Analyzer {
+            frameCount++
             val converter = YuvToRgbConverter(requireContext())
-
             val bitmap = Bitmap.createBitmap(it.width, it.height, Bitmap.Config.ARGB_8888)
             converter.yuvToRgb(it.image ?: return@Analyzer, bitmap)
             val bitmapRotate = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, Matrix().apply {
-                postRotate(90f)
+                if (lensFacing == CameraSelector.LENS_FACING_FRONT) {
+                    postRotate(270f)
+                    postScale(-1f, 1f)
+                } else postRotate(90f)
             }, true)
+            if (frameCount % 3 == 0)
+                swapFace(bitmapRotate)
             it.close()
-
-            GPUIImageView.post {
-                GPUIImageView.setImage(bitmapRotate)
-            }
         })
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
 
         cameraProvider?.unbindAll()
         cameraProvider?.bindToLifecycle(this@FilterCamFragment, cameraSelector, imageAnalysis)
+    }
+
+    private fun swapFace(bitmapRotate: Bitmap) {
+        val byteArray = getPixelsRGBA(bitmapRotate)
+
+        val faceInfo = FaceSDKNative.getInstance().FaceDetect(byteArray, bitmapRotate.width, bitmapRotate.height, 4)
+
+        val bitmapResult = Bitmap.createBitmap(bitmapRotate.width, bitmapRotate.height, Bitmap.Config.ARGB_8888)
+
+        val canvas = Canvas(bitmapResult)
+        canvas.drawBitmap(bitmapRotate, 0f, 0f, null)
+
+        if (faceInfo[0] > 1) {
+            (0 until faceInfo[0] / 2).forEachIndexed { index, _ ->
+                val indexRevert = index + faceInfo[0] / 2
+                val left = faceInfo[1 + 4 * index]
+                val top = faceInfo[2 + 4 * index]
+                val right = faceInfo[3 + 4 * index]
+                val bottom = faceInfo[4 + 4 * index]
+
+                val left2 = faceInfo[1 + 4 * indexRevert]
+                val top2 = faceInfo[2 + 4 * indexRevert]
+                val right2 = faceInfo[3 + 4 * indexRevert]
+                val bottom2 = faceInfo[4 + 4 * indexRevert]
+
+                val face1 = Bitmap.createBitmap(bitmapRotate, left, top, right - left, bottom - top, Matrix().apply {
+                    postScale((right2 - left2).toFloat() / (right - left).toFloat(), (bottom2 - top2).toFloat() / (bottom - top).toFloat())
+                }, false)
+                val face2 = Bitmap.createBitmap(bitmapRotate, left2, top2, right2 - left2, bottom2 - top2, Matrix().apply {
+                    postScale((right - left).toFloat() / (right2 - left2).toFloat(), (bottom - top).toFloat() / (bottom2 - top2).toFloat())
+                }, false)
+
+                canvas.drawBitmap(face1, left2.toFloat(), top2.toFloat(), null)
+                canvas.drawBitmap(face2, left.toFloat(), top.toFloat(), null)
+
+                GPUIImageView.post {
+                    GPUIImageView.setImage(bitmapResult)
+                }
+            }
+        } else {
+            GPUIImageView.post {
+                GPUIImageView.setImage(bitmapResult)
+            }
+        }
+    }
+
+    private fun getPixelsRGBA(image: Bitmap): ByteArray? {
+        // calculate how many bytes our image consists of
+        val bytes = image.byteCount
+        val buffer = ByteBuffer.allocate(bytes) // Create a new buffer
+        image.copyPixelsToBuffer(buffer) // Move the byte data to the buffer
+        return buffer.array()
     }
 }

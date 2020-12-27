@@ -42,4 +42,14 @@
         android:padding="@dimen/spacing_large"
         android:scaleType="fitCenter" />
 
+    <ImageButton
+        android:id="@+id/swichButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="start|bottom"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="92dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_switch" />
 </FrameLayout>

@@ -169,7 +169,7 @@ class CameraFragment : Fragment() {
         }
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         container = view as ConstraintLayout
@@ -438,6 +438,7 @@ class CameraFragment : Fragment() {
                         cameraProvider ?: return@setOnClickListener,
                         cameraSelector
                 )
+                viewFinderDraw.clearRect()
             } else {
                 it.setBackgroundColor(Color.WHITE)
                 state = StateCam.CAPTURE
@@ -445,6 +446,7 @@ class CameraFragment : Fragment() {
                         cameraProvider ?: return@setOnClickListener,
                         cameraSelector
                 )
+                viewFinderDraw.clearRect()
             }
         }
 
@@ -601,6 +603,24 @@ class CameraFragment : Fragment() {
                         requireActivity(), R.id.fragment_container
                 ).navigate(CameraFragmentDirections
                         .actionCameraToGallery(outputDirectory.absolutePath))
+            }
+        }
+
+        controls.findViewById<ImageButton>(R.id.flashModeButton).setOnClickListener {
+            when (imageCapture?.flashMode) {
+                ImageCapture.FLASH_MODE_OFF -> {
+                    imageCapture?.flashMode = ImageCapture.FLASH_MODE_ON
+                    (it as ImageButton).setImageResource(R.drawable.ic_baseline_flash_on_24)
+                }
+                ImageCapture.FLASH_MODE_ON -> {
+                    imageCapture?.flashMode = ImageCapture.FLASH_MODE_AUTO
+                    (it as ImageButton).setImageResource(R.drawable.ic_baseline_flash_auto_24)
+                }
+                ImageCapture.FLASH_MODE_AUTO -> {
+                    imageCapture?.flashMode = ImageCapture.FLASH_MODE_OFF
+                    (it as ImageButton).setImageResource(R.drawable.ic_baseline_flash_off_24)
+                }
+                else -> return@setOnClickListener
             }
         }
     }

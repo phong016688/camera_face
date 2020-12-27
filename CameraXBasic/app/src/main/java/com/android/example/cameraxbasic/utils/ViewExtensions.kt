@@ -117,6 +117,11 @@ class PreviewViewCustom(context: Context, attrs: AttributeSet?) : View(context, 
         invalidate()
     }
 
+    override fun performClick(): Boolean {
+        Log.d("###", "handle cho ng khiem thi")
+        return super.performClick()
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         rects.forEach { canvas?.drawRect(it, paint) }
